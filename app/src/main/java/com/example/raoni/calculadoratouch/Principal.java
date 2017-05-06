@@ -1,6 +1,7 @@
 package com.example.raoni.calculadoratouch;
 
 import android.app.ActionBar;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class Principal extends AppCompatActivity {
         visor.setTextSize(80);
         visor.setSingleLine(true);
         visor.setCursorVisible(false);
+        visor.setTextColor(Color.MAGENTA);
 
 
 
@@ -63,8 +65,12 @@ public class Principal extends AppCompatActivity {
 
                 Button botao = new Button(this);
                 botao.setTextSize(30);
+                botao.setBackgroundColor(Color.BLACK);
+                botao.setTextColor(Color.WHITE);
+                leiaute.setBackgroundColor(Color.BLACK);
                 //botao.setPadding(6,5,6,5);
                // botao.setTextColor(Color.parseColor("#000FF"));
+
 
                 if(i==0 && j==0)
                     botao.setText("C");
@@ -81,7 +87,7 @@ public class Principal extends AppCompatActivity {
                 else if (i==3 && j==3)
                     botao.setText("/");
                 else if (i==4 && j==3)
-                    botao.setText("*");
+                    botao.setText("x");
                 else if (i==4 && j==0)
                     botao.setText(".");
                 else if (i==4 && j==1)
@@ -113,7 +119,7 @@ public class Principal extends AppCompatActivity {
     public String porcentagem(){
         n1 = Float.parseFloat(string);
         n2 = Float.parseFloat(textVisor);
-        resultado = n1 * (n2/100);
+        resultado = n2 * (n1/100);
         aux = String.valueOf(resultado);
 
         return aux;
@@ -150,7 +156,7 @@ public class Principal extends AppCompatActivity {
     }
 
     public String tecladoCalculadora(String str) {
-         aux = null;
+        aux = null;
         textVisor = visor.getText().toString();
         textNextVisor = str;
 
@@ -158,7 +164,7 @@ public class Principal extends AppCompatActivity {
             aux = "";
             string = aux;
             return aux;
-        } else if (textNextVisor == "del") {
+        } else if (textNextVisor == "DEL") {
             aux = textVisor;
             if (!aux.isEmpty()) aux = aux.substring(0, aux.length() - 1);
             return aux;
@@ -171,7 +177,7 @@ public class Principal extends AppCompatActivity {
             return aux;
             } else if (textNextVisor =="-") {
             operador = textNextVisor;
-            aux = textNextVisor;
+            aux = textVisor;
             string = aux;
             aux = "";
             return aux;
@@ -193,7 +199,9 @@ public class Principal extends AppCompatActivity {
             string = aux;
             aux = "";
             return aux;
-        } else if (operador == "%"){
+        }
+
+        if (operador == "%"){
             return porcentagem();
         } else if (textNextVisor == "=" && textNextVisor !="") {
             if (operador == "+")
@@ -207,13 +215,14 @@ public class Principal extends AppCompatActivity {
             else if(operador == "√")
                 return raiz();
 
-        } else if (textNextVisor == "=" || textNextVisor =="+" || textNextVisor == "-" || textNextVisor == "x" || textNextVisor == "/"
+        } /*else if (textNextVisor == "=" || textNextVisor =="+" || textNextVisor == "-" || textNextVisor == "x" || textNextVisor == "/"
             || textNextVisor == "√" || textNextVisor == "%" && textNextVisor =="") {
             return "";
-        }
+        }*/
         aux = textVisor +textNextVisor;
         return aux;
     }
+
 @Override
     protected void onStop(){
     super.onStop();
